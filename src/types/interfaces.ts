@@ -11,7 +11,7 @@ export interface Income {
     income_id: string;
     income_amount: number;
     income_source: string;
-    date: Date;
+    income_date: Date;
     user_id: string;
 }
 
