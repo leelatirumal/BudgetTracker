@@ -3,7 +3,7 @@ import type { Income } from "../types/interfaces";
 
 export default class IncomeTracker {
 
-    async getTotalIncome(userId: string): Promise<number> {
+    async getTotalIncome(userId: number): Promise<number> {
         const [rows]: any = await pool.query(
             "SELECT SUM(income_amount) as total FROM incomes WHERE user_id = ?", [userId]
         );
@@ -18,7 +18,7 @@ export default class IncomeTracker {
         );
     }
 
-    async getIncomesByUser(userId: string): Promise<Income[]> {
+    async getIncomesByUser(userId: number): Promise<Income[]> {
         const [rows]: any = await pool.query(
             "SELECT * FROM incomes WHERE user_id = ?", [userId]
         );

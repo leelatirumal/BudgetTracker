@@ -5,7 +5,7 @@ import type{ Budget } from "../types/interfaces.js";
 export class BudgetTracker {
 
     
-async getBudgetByUserId(userId: string): Promise<Budget [] | null> {
+async getBudgetByUserId(userId: number): Promise<Budget [] | null> {
     const [result] = await pool.query("SELECT * FROM BUDGETS WHERE user_id = ?", [userId]);
     console.log("BudgetTracker.getBudgetByUserId result:", result);
     return result as Budget[];

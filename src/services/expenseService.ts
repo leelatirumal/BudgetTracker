@@ -11,7 +11,7 @@ export const addExpense = async (expense: Expense): Promise<void> => {
    await tracker.addExpense(expense);
 };
 
-export const getTotalExpenses = (userId: string) => tracker.getTotalExpenses(userId);
+export const getTotalExpenses = (userId: number) => tracker.getTotalExpenses(userId);
 
-export const getAllExpenses = (userId: string) => tracker.getAllExpensesByUserId(userId);
+export const getAllExpenses = (userId: number) => tracker.getAllExpensesByUserId(userId);
 

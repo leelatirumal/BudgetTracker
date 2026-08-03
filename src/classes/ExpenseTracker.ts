@@ -9,7 +9,7 @@ class ExpenseTracker {
     );
   }
 
-  async getTotalExpenses(userId: string): Promise<number> {
+  async getTotalExpenses(userId: number): Promise<number> {
     const [rows]: any = await pool.query(
       "SELECT SUM(e.expense_amount) as total FROM expenses e JOIN budgets b ON e.budget_id = b.budget_id WHERE b.user_id = ?", [userId]
     );
@@ -20,7 +20,7 @@ class ExpenseTracker {
     await pool.query("DELETE FROM expenses WHERE expense_id = ?", [expense_id]);
   }
 
-  async getAllExpensesByUserId(userId: string): Promise<Expense[]> {
+  async getAllExpensesByUserId(userId: number): Promise<Expense[]> {
     const [rows]: any = await pool.query(
       "SELECT e.* FROM expenses e JOIN budgets b ON e.budget_id = b.budget_id WHERE b.user_id = ?", [userId]
     );

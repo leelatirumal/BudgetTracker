@@ -1,11 +1,11 @@
-import type{ Budget } from "../types/interfaces.js";
+import type{ AuthRequest, Budget } from "../types/interfaces.js";
 import * as budgetService from "../services/budgetService.js";
 
 import type { Request, Response } from "express";
 
-export async function getBudgets(req: Request, res: Response): Promise<void> {
-    const userId = req.params.userId;
-    if(typeof userId !== "string") {
+export async function getBudgets(req: AuthRequest, res: Response): Promise<void> {
+    const userId = Number(Number(req.params.userId));
+    if(typeof userId !== "number" || isNaN(userId)) {
         res.status(400).send("Invalid userId");
         return;
     }
@@ -17,7 +17,7 @@ export async function getBudgets(req: Request, res: Response): Promise<void> {
     }
 }
 
-export async function addBudget(req: Request, res: Response): Promise<void> {
+export async function addBudget(req: AuthRequest, res: Response): Promise<void> {
     const budget: Budget = req.body;
     try {
         const newBudget = await budgetService.addBudget(budget);

@@ -4,7 +4,7 @@ import type { Budget } from "../types/interfaces.js";
 
 const budgetTracker = new BudgetTracker();  
 
-export async function getBudgetByUserId(userId: string): Promise<Budget [] | null> {
+export async function getBudgetByUserId(userId: number): Promise<Budget [] | null> {
     return budgetTracker.getBudgetByUserId(userId);
 }
 

@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
-import type { Expense } from '../types/interfaces.js';
+import type { Expense, AuthRequest } from '../types/interfaces.js';
 import * as expenseService from '../services/expenseService.js';
 
-async function getExpenses(req: Request, res: Response) {
+async function getExpenses(req: AuthRequest, res: Response) {
     try {
         const { budget_id } = req.params;
         const budgetId = Number(budget_id);
@@ -16,7 +16,7 @@ async function getExpenses(req: Request, res: Response) {
     }
 }
 
-async function addExpense(req: Request, res: Response) {
+async function addExpense(req: AuthRequest, res: Response) {
     try {
         const expenseData: Expense = req.body;
         if (!expenseData.expense_id || !expenseData.expense_amount || !expenseData.budget_id || !expenseData.expense_date) {
@@ -29,7 +29,7 @@ async function addExpense(req: Request, res: Response) {
     }
 }
 
-async function deleteExpense(req: Request, res: Response) {
+async function deleteExpense(req: AuthRequest, res: Response) {
     try {
         let { expense_id } = req.params;
         const expenseId = Number(expense_id);
@@ -43,10 +43,10 @@ async function deleteExpense(req: Request, res: Response) {
     }   
 }
 
-async function getTotalExpenses(req: Request, res: Response) {
+async function getTotalExpenses(req: AuthRequest, res: Response) {
     try {
         const { userId } = req.params;
-        if(typeof userId !== 'string' || userId.trim() === '') {
+        if(typeof userId !== 'number' || isNaN(userId)) {
             return res.status(400).json({ message: "User id is required" });
         }
         const totalExpenses = await expenseService.getTotalExpenses(userId);
@@ -56,11 +56,14 @@ async function getTotalExpenses(req: Request, res: Response) {
     }
 }
 
-async function getAllExpenses(req: Request, res: Response) {
+async function getAllExpenses(req: AuthRequest, res: Response) {
     try {
-        const { userId } = req.params;
-        if(typeof userId !== 'string' || userId.trim() === '') {
+        const userId = Number(req.params.userId);
+        if(typeof userId !== 'number' || isNaN(userId)) {
             return res.status(400).json({ message: "User id is required" });
+        }
+        if(userId !=req.user_id) {
+            return res.status(403).json({ message: "Forbidden: You can only access your own expenses" });
         }
         const expenses = await expenseService.getAllExpenses(userId);
         res.status(200).json({ expenses });

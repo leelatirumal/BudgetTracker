@@ -1,7 +1,7 @@
 import pool from '../config/db.js';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import type { Users } from '../types/interfaces';
+import type { Users } from '../types/interfaces.js';
 import "dotenv/config";
 
 export const register = async (user:Users) => {

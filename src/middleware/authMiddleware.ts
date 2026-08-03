@@ -1,10 +1,7 @@
 import type {Request,Response,NextFunction} from 'express';
 import jwt from 'jsonwebtoken';
 import "dotenv/config";
-
-export interface AuthRequest extends Request {
-    user_id?: string;
-}
+import type { AuthRequest } from '../types/interfaces.js';
 
 const requireAuth=(req: AuthRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization; // expects "Bearer <token>"

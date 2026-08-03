@@ -1,7 +1,7 @@
 import IncomeTracker from "../classes/IncomeTracker.js";
 import type { Income } from "../types/interfaces";
 
-async function getTotalIncome(userId: string): Promise<number> {
+async function getTotalIncome(userId: number): Promise<number> {
     const incomeTracker = new IncomeTracker();
     return await incomeTracker.getTotalIncome(userId);
 }
@@ -11,7 +11,7 @@ async function addIncome(income: Omit<Income, "id">): Promise<void> {
     await incomeTracker.addIncome(income);
 }
 
-async function getIncomesByUser(userId: string): Promise<Income[]> {
+async function getIncomesByUser(userId: number): Promise<Income[]> {
     const incomeTracker = new IncomeTracker();
     return await incomeTracker.getIncomesByUser(userId);
 }

@@ -1,4 +1,4 @@
-
+import type { Request } from 'express';
 export interface Expense {
     expense_id: number;
     budget_id: number;
@@ -27,4 +27,8 @@ export interface Users {
     name: string;
     email: string;
     password: string;
+}
+
+export interface AuthRequest extends Request {
+    user_id?: string;
 }
