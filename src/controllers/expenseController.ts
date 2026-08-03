@@ -1,5 +1,4 @@
 import type { Request, Response } from 'express';
-console.log("Expense controller is being initialized--0...");
 import type { Expense } from '../types/interfaces.js';
 import * as expenseService from '../services/expenseService.js';
 

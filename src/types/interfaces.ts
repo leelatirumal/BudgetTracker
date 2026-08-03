@@ -22,8 +22,9 @@ export interface Budget {
     user_id: string;
 }
 
-export interface User {
+export interface Users {
     user_id: string;
-    username: string;
-    profession: string;
+    name: string;
+    email: string;
+    password: string;
 }
